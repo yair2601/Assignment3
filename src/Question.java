@@ -1,10 +1,12 @@
 abstract class Question {
-	private  String content;
-	private String[] choices;
-	private char answer;
-	private int level;
-	
-	public Question(String content, int level, char answer, String[] choices) {
+	protected  String content;
+	protected String[] choices;
+	protected char answer;
+	protected int level;
+	protected int totalAnswers;
+	protected int totalWrongAnswers;
+
+	protected Question(String content, int level, char answer, String[] choices) {
 		this.content=content;
 		this.choices= cloneChoicesArray(choices);
 		this.answer=answer;
@@ -16,10 +18,9 @@ abstract class Question {
 	private boolean checkIfLevelIsValid(int level) {
 		if (level>=1&& level<=10)
 			return true;
-		//else 
-			//throw new ImpossibleQuestionLevelException();
-		return false;
-			
+		else 
+			throw new ImpossibleQuestionLevelException();
+
 	}
 
 	private String[] cloneChoicesArray(String[] choices) {
@@ -32,5 +33,31 @@ abstract class Question {
 
 	public int getLevel() {
 		return level;
+	}
+	protected boolean checkLevelRange(int level, int indicator) {
+		if (indicator==1) {
+			if (level<=9)
+				return true;
+			else 
+				return false;
+		}
+		if (indicator==-1) {
+			if (level>=2)
+				return true;
+			else 
+				return false;
+		}
+
+		return true;
+
+	}
+	abstract void updateLevel();
+	
+	public String toString() {
+		return this.content;
+		
+	}
+	public char getAnswer() {
+		return this.answer;
 	}
 }

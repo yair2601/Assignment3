@@ -51,5 +51,8 @@ public class Ad {
 	public int getRevenue() {
 		return revenue;
 	}
+	public String toString() {
+		return this.content;
+	}
 	
 }
