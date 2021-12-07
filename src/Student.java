@@ -38,5 +38,17 @@ public class Student {
 	public int getRevenue() {
 		return revenue;
 	}
+	public int updateStudentLevel() {// return student level between 1-10
+		int updateStudentLevel=(int)this.totalGrade/100;
+		if(updateStudentLevel==0)
+			return 1;
+		else 
+			return updateStudentLevel;
+
+	}
+
+	public int getAge() {
+		return age;
+	}
 	
 }
