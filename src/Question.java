@@ -1,11 +1,10 @@
-
 abstract class Question {
-	protected  String content;
-	protected String[] choices;
-	protected char answer;
-	protected int level;
+	private  String content;
+	private String[] choices;
+	private char answer;
+	private int level;
 	
-	protected Question(String content, int level, char answer, String[] choices) {
+	public Question(String content, int level, char answer, String[] choices) {
 		this.content=content;
 		this.choices= cloneChoicesArray(choices);
 		this.answer=answer;
@@ -17,8 +16,9 @@ abstract class Question {
 	private boolean checkIfLevelIsValid(int level) {
 		if (level>=1&& level<=10)
 			return true;
-		else 
-			throw new ImpossibleQuestionLevelException();
+		//else 
+			//throw new ImpossibleQuestionLevelException();
+		return false;
 			
 	}
 

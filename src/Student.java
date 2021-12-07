@@ -6,8 +6,8 @@ public class Student {
 	private int age;
 	private int totalGrade;
 	private int studentLevel;
-	private int mathGrade;//not sure if needed
-	private int englishGrade;//not sure if needed
+	private int mathGrade;
+	private int englishGrade;
 	private int revenue;
 
 	public Student(String email, String firstName, String lastName, int age) {
@@ -25,14 +25,18 @@ public class Student {
 		else 
 			throw new ImpossibleEmailException();
 	}
-
+	
 	public void updateGrade(int mathGrade, int englishGrade) {
 		this.totalGrade=calculateTotalGrade( mathGrade, englishGrade);
-
+		
 	}
 
 	private int calculateTotalGrade(int mathGrade, int englishGrade) {
 		return 700*mathGrade+300*englishGrade;
+	}
+
+	public int getRevenue() {
+		return revenue;
 	}
 	public int updateStudentLevel() {// return student level between 1-10
 		int updateStudentLevel=(int)this.totalGrade/100;
@@ -43,8 +47,8 @@ public class Student {
 
 	}
 
-	public int getRevenue() {
-		return revenue;
+	public int getAge() {
+		return age;
 	}
-
+	
 }
