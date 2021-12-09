@@ -4,10 +4,15 @@ public class Practice {
 	private Student student;
 	private Vector<Question> questions;
 	private Ad ad;
+	private int totalMathAnswers;
+	private int totalEnglishAnswers;
+	private int totalCorrectMathAnswers;
+	private int totalCorrectEnglishAnswers;
 	
 	public Practice(Student student, Vector<Question> questions, Ad ad) {
-		//questions.sort(QuestiontByDifficultyComparator<Question>);
+		Comparator<Question> QuestiontByDifficultyComparator = new QuestiontByDifficultyComparator();
 		this.questions=questions;//need to check if need to clone
+		this.questions.sort(QuestiontByDifficultyComparator);
 		this.student=student;
 		this.ad=ad;
 		
@@ -31,16 +36,54 @@ public class Practice {
 		System.out.println("Welcome to the Practice");
 		for(int i =0 ; i<this.questions.size();i++) {
 			System.out.print("Question number"+ i+1 + ":");
+			char calculatedAnswer=calculateAnswer(i);
 			if(this.questions.elementAt(i)instanceof QuantitativeQuestion) {
 				System.out.println(((QuantitativeQuestion)this.questions.elementAt(i)).getformula());
 				System.out.println(this.questions.elementAt(i));
+				UpdateCorrectAnswer(calculatedAnswer,i,"math");
+				updateTotalQuestion("math");
+				
 			}
 			if(this.questions.elementAt(i)instanceof EnglishQuestion) {				
 				System.out.println(this.questions.elementAt(i));
 				System.out.println(((EnglishQuestion)this.questions.elementAt(i)).getHint());
+				UpdateCorrectAnswer(calculatedAnswer,i,"english");
+				updateTotalQuestion("english");
 			}
-			System.out.println("Your answer:"+ calculateAnswer(i));
+			System.out.println("Your answer:"+ calculatedAnswer);
+			
 		}
+		System.out.println("Practice was finished, your math score is:"+ calculateScore("math"));
+		System.out.println("Practice was finished, your math score is:"+ calculateScore("english"));
+	}
+
+	private int calculateScore(String questionsType) {
+		if(questionsType.equals("math")) {
+			return this.totalCorrectMathAnswers/this.totalMathAnswers;
+		}if(questionsType.equals("english")) {
+			return this.totalCorrectEnglishAnswers/this.totalEnglishAnswers;
+		}
+		return 0;
+	}
+
+	private void updateTotalQuestion(String questionsType) {
+		if(questionsType.equals("math")) {
+			this.totalMathAnswers++;
+		}else {
+			this.totalEnglishAnswers++;
+		}			
+		
+	}
+
+	private void UpdateCorrectAnswer(char calculatedAnswer, int i, String questionsType) {
+		if(this.questions.elementAt(i).getAnswer()==calculatedAnswer) {
+			if(questionsType.equals("math")) {
+				this.totalCorrectMathAnswers++;
+			}else {
+				this.totalCorrectEnglishAnswers++;
+			}			
+		}
+		
 	}
 
 	private char calculateAnswer(int i) {

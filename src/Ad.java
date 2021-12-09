@@ -1,10 +1,11 @@
 import java.util.*;
-public class Ad {
+public class Ad implements Comparable<Ad> {
 	private String content;
 	private int pricePerPractice;
 	private int minAge;
 	private int maxAge;
 	private int revenue;
+	private Comparator<Ad> comperator;
 
 
 	
@@ -15,6 +16,7 @@ public class Ad {
 		if(isAdultThemedAd()&&minAge<18) {
 			throw new adultsOnlyExeption();
 		}
+		this.comperator= new AdByRevenueComparator();
 	}
 
 
@@ -53,6 +55,17 @@ public class Ad {
 	}
 	public String toString() {
 		return this.content;
+	}
+
+
+	public Comparator<Ad> getComperator() {
+		return comperator;
+	}
+
+
+	
+	public int compareTo(Ad otherAd) {
+		return this.comperator.compare(this, otherAd);
 	}
 	
 }

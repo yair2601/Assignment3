@@ -21,4 +21,13 @@ public class QuantitativeQuestion extends Question {
 		return this.formula;
 	}
 
+	public int compare(Question quantitativeQuestion1, Question QuantitativeQuestion2) {
+		return this.comperator.compare(this, QuantitativeQuestion2);
+		
+	}
+	
+	
+	public int compareTo(EnglishQuestion otherQuantitativeQuestion) {
+		return this.comperator.compare(this, otherQuantitativeQuestion);
+	}
 }

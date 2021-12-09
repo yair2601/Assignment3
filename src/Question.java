@@ -1,10 +1,13 @@
-abstract class Question {
+import java.util.Comparator;
+
+abstract class Question implements Comparator<Question> {
 	protected  String content;
 	protected String[] choices;
 	protected char answer;
 	protected int level;
 	protected int totalAnswers;
 	protected int totalWrongAnswers;
+	protected Comparator<Question> comperator;
 
 	protected Question(String content, int level, char answer, String[] choices) {
 		this.content=content;
@@ -13,6 +16,7 @@ abstract class Question {
 		if (checkIfLevelIsValid(level)) {
 			this.level=level;
 		}
+		this.comperator= new QuestiontByDifficultyComparator();
 	}
 
 	private boolean checkIfLevelIsValid(int level) {
@@ -33,6 +37,32 @@ abstract class Question {
 
 	public int getLevel() {
 		return level;
+	}
+	
+	public int getTotalAnswers() {
+		return totalAnswers;
+	}
+	
+	public int getTotalWrongAnswers() {
+		return totalWrongAnswers;
+	}
+	
+	public boolean updateTotalAnswers(int TotalAnswers ) {
+		if(totalAnswers==1) {
+			this.totalAnswers++;
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public boolean updateTotalWrongAnswers(int TotalWrongAnswers ) {
+		if(TotalWrongAnswers==1) {
+			this.totalWrongAnswers++;
+			return true;
+		}
+		return false;
+		
 	}
 	protected boolean checkLevelRange(int level, int indicator) {
 		if (indicator==1) {
@@ -60,4 +90,11 @@ abstract class Question {
 	public char getAnswer() {
 		return this.answer;
 	}
+	public Comparator<Question> getComparator() {
+		return this.comperator;
+	}
+	public Comparator<Question> getComperator() {
+		return comperator;
+	}
+	//abstract int compareTo(Question otherQuestion);
 }

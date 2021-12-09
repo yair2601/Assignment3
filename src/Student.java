@@ -1,5 +1,6 @@
+import java.util.Comparator;
 
-public class Student {
+public class Student implements Comparable<Student>{
 	private  String email;
 	private String firstName;
 	private String lastName;
@@ -9,6 +10,7 @@ public class Student {
 	private int mathGrade;
 	private int englishGrade;
 	private int revenue;
+	private Comparator<Student> comperator;
 
 	public Student(String email, String firstName, String lastName, int age) {
 		this.firstName=firstName;
@@ -17,6 +19,7 @@ public class Student {
 		if (checkIfEmailIsValid(email)) {
 			this.email=email;
 		}
+		this.comperator= new StudntByRevenueComparator();
 	}
 
 	private boolean checkIfEmailIsValid(String email2) {
@@ -54,5 +57,15 @@ public class Student {
 	public int getStudentLevel() {
 		return studentLevel;
 	}
-	
+	public String getEmail() {
+		return email;
+	}
+
+	public Comparator<Student> getComperator() {
+		return comperator;
+	}
+
+	public int compareTo(Student otherStudent) {
+		return this.comperator.compare(this, otherStudent);
+	}
 }
