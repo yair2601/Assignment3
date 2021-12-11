@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-abstract class Question implements Comparator<Question> {
+abstract class Question implements Comparator<Question>{
 	protected  String content;
 	protected String[] choices;
 	protected char answer;

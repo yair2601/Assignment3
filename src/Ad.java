@@ -1,5 +1,5 @@
 import java.util.*;
-public class Ad implements Comparable<Ad> {
+public class Ad implements Comparable<Ad>,profitable {
 	private String content;
 	private int pricePerPractice;
 	private int minAge;
@@ -66,6 +66,13 @@ public class Ad implements Comparable<Ad> {
 	
 	public int compareTo(Ad otherAd) {
 		return this.comperator.compare(this, otherAd);
+	}
+
+
+	
+	public int getprofit() {
+		return this.revenue;
+		
 	}
 	
 }

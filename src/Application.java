@@ -41,7 +41,7 @@ public class Application {
 	}
 
 	public void importQuestions(String import_questions) throws IOException {
-		String Configuration = "C:\\Users\\yair2\\Java\\"+import_questions+".txt";
+		String Configuration = "C:\\Users\\nirta\\Java\\"+import_questions+".txt";
 		BufferedReader inFile=null;
 		try
 		{
@@ -77,14 +77,68 @@ public class Application {
 		finally{
 			inFile.close();
 		}
+
 	}
 
 	public void createPractice (String email) {
 		int StudentLocation= findStudentLocation(email);
 		Vector <Question> practiceQuestion= CreateQuestions(this.students.elementAt(StudentLocation));
-		Practice practice= new Practice(this.students.elementAt(StudentLocation), practiceQuestion, null);
+		Practice practice= new Practice(this.students.elementAt(StudentLocation), practiceQuestion, generateAppropriateAd(StudentLocation));
 		practice.runPractice();
 	}
+
+	public void bestStudents() {
+		Student MostProfitableStudent=findMostProfitableStudent();
+		Student HighestGradesStudent=findHighestGradesStudent();
+		PrintMostProfitableStudent(MostProfitableStudent);
+		PrintHighestGradesStudent(HighestGradesStudent);
+
+		//findHighestScoreStudent()
+
+	}
+
+	private void PrintHighestGradesStudent(Student highestGradesStudent) {
+		System.out.println("The student with the highest grade is: "+highestGradesStudent.getFirstName()+" "+highestGradesStudent.getLastName());
+		System.out.println("The grade is: "+highestGradesStudent.getTotalGrade());
+	}
+
+
+
+	private void PrintMostProfitableStudent(Student mostProfitableStudent) {
+		System.out.println("The student who brought the company the most profits is:" +mostProfitableStudent.getFirstName()+" "+mostProfitableStudent.getLastName() );
+		System.out.println("The profit is: "+ mostProfitableStudent.getRevenue());
+	}
+
+
+
+	private Student findHighestGradesStudent() {
+		Comparator<Student> StudntByGradesComparator= new StudntByGradesComparator();
+		this.students.sort(StudntByGradesComparator);
+		return this.students.elementAt(this.students.size());//need to check if the sort is from low to high or the opposit
+	}
+
+
+
+	private Student findMostProfitableStudent() {
+		Comparator<Student> StudntByRevenueComparator= new StudntByRevenueComparator();
+		this.students.sort(StudntByRevenueComparator);
+		return this.students.elementAt(this.students.size());//need to check if the sort is from low to high or the opposit
+	}
+
+
+
+	private Ad generateAppropriateAd(int StudentLocation) {//generate a suitable ad for practice
+		int flag=0;
+		int randomLocation=0;
+		while (flag==0) {
+			randomLocation = (int)(Math.random()*ads.size());
+			if(ads.elementAt(randomLocation).suitableForStudent(students.elementAt(StudentLocation)))//if this add is suitable for this student- flag=1
+				flag=1;
+		}
+		return ads.elementAt(randomLocation);
+	}
+
+
 
 	private Vector<Question> CreateQuestions(Student student) {
 		Vector <Question> practiceQuestion=new Vector <Question>();
@@ -112,9 +166,14 @@ public class Application {
 
 
 	private int FindtheMaxIndex(int level) {
-		for(int i=0 ; i<this.questions.size()-1;i++) {
-			if(this.questions.elementAt(i).getLevel()==level&&this.questions.elementAt(i+1).getLevel()>level) {
-				return i+1;
+		for(int i=0 ; i<this.questions.size();i++) {
+			try {
+				if(this.questions.elementAt(i).getLevel()==level&&this.questions.elementAt(i+1).getLevel()>level) 
+					return i+1;
+
+			}
+			catch (ArrayIndexOutOfBoundsException e) {//catch the exception- do nothing
+
 			}
 		}
 		return 0;
@@ -138,7 +197,7 @@ public class Application {
 		int[]range= findLevelRange(level);
 		int[]lowRange = findLevelRange(this.questions.elementAt(0).getLevel());//find the range of the lowest level (element at 0)
 		int[]highRange = findLevelRange(this.questions.elementAt(this.questions.size()-1).getLevel());//find the range of the lowest level (element at last place)
-		highRange[1]=this.questions.size()-1;//repair for high range
+		//highRange[1]=this.questions.size()-1;//repair for high range
 		add4Question(range,practiceQuestion,0);//english quations
 		add4Question(range,practiceQuestion,1);//Math quations
 		add4Question(lowRange,practiceQuestion,0);
@@ -155,84 +214,97 @@ public class Application {
 			pickRandomQuationAndAtIt(range,practiceQuestion,QuationType);
 			counter--;
 		}
-}
+	}
 
 
-private Question pickRandomQuationAndAtIt(int[] range, Vector<Question> practiceQuestion, int quationType) {
-	int randomNumber=(int) ((Math.random() * (range[1] - range[0])) + range[0]);//generate random number in the range
-	if(this.questions.elementAt(randomNumber).getQuationType()=="English"&&quationType==0) {//check if english and needed to add english
-		if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
-			pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+	private Question pickRandomQuationAndAtIt(int[] range, Vector<Question> practiceQuestion, int quationType) {
+		int randomNumber=(int) ((Math.random() * (range[1] - range[0])) + range[0]);//generate random number in the range
+		if(this.questions.elementAt(randomNumber).getQuationType()=="English"&&quationType==0) {//check if english and needed to add english
+			if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
+				pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+			}
+			practiceQuestion.add(this.questions.elementAt(randomNumber));
+			return this.questions.elementAt(randomNumber);
 		}
-		practiceQuestion.add(this.questions.elementAt(randomNumber));
-		return this.questions.elementAt(randomNumber);
-	}
-	if(this.questions.elementAt(randomNumber).getQuationType()=="Quantitative"&&quationType==1) {//check if math and needed to add math
-		if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
-			pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
-		}		
-		practiceQuestion.add(this.questions.elementAt(randomNumber));
-		return this.questions.elementAt(randomNumber);
-	}
-	 return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
-	
-}
-
-
-
-private boolean checkIfExistInPracticeQuestion(Vector<Question> practiceQuestion, int randomNumber, Question originalQuestion) {
-	for(int i=0;i<practiceQuestion.size();i++) {
-		if(practiceQuestion.elementAt(i).content==originalQuestion.content&&practiceQuestion.elementAt(i).choices==originalQuestion.choices) {
-			return true;
+		if(this.questions.elementAt(randomNumber).getQuationType()=="Quantitative"&&quationType==1) {//check if math and needed to add math
+			if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
+				pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+			}		
+			practiceQuestion.add(this.questions.elementAt(randomNumber));
+			return this.questions.elementAt(randomNumber);
 		}
+		return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+
 	}
+
+
+
+	private boolean checkIfExistInPracticeQuestion(Vector<Question> practiceQuestion, int randomNumber, Question originalQuestion) {
+		for(int i=0;i<practiceQuestion.size();i++) {
+			if(practiceQuestion.elementAt(i).content==originalQuestion.content&&practiceQuestion.elementAt(i).choices==originalQuestion.choices) {
+				return true;
+			}
+		}
 		return false;
-}
+	}
 
 
 
-//
-//	private Vector<Question> createMathVector() {
-//		Object result = this.questions.clone();
-//		
-//		for(int i=0;i<result.size();i++) {
-//			result.elementAt(i)=questions.elementAt(i);
-//			
-//		}
-//		return result;
-//	}
+	//
+	//	private Vector<Question> createMathVector() {
+	//		Object result = this.questions.clone();
+	//		
+	//		for(int i=0;i<result.size();i++) {
+	//			result.elementAt(i)=questions.elementAt(i);
+	//			
+	//		}
+	//		return result;
+	//	}
 
+	public static <T extends profitable> int totalRevenues (Vector <T> vector){//need to check if vector is the input
+			int totalRevenues=0;
+			for(int i = 0 ; i < vector.size() ; i++){
+				totalRevenues+=vector.elementAt(i).getprofit();
+			}
+		return totalRevenues;
+		
+	}
 
-
-public static <T extends Comparable<T>> T getMax (Vector <T> vector) {
-	T max = vector.elementAt(0);
-	for(int i = 0 ; i < vector.size() ; i++){		
-		if(vector.elementAt(i).compareTo(max) >= 0 ){
-			max = vector.elementAt(i); 
+	public static <T extends Comparable<T>> T getMax (Vector <T> vector) {
+		T max = vector.elementAt(0);
+		for(int i = 0 ; i < vector.size() ; i++){		
+			if(vector.elementAt(i).compareTo(max) >= 0 ){
+				max = vector.elementAt(i); 
+			}
 		}
+		return max;
 	}
-	return max;
-
-
-}
-public static <T extends Comparable<T>> T getMin (Vector <T> vector) {
-	T min = vector.elementAt(0);
-	for(int i = 0 ; i < vector.size() ; i++){		
-		if(vector.elementAt(i).compareTo(min) <= 0 ){
-			min = vector.elementAt(i); 
+	public static <T extends Comparable<T>> T getMin (Vector <T> vector) {
+		T min = vector.elementAt(0);
+		for(int i = 0 ; i < vector.size() ; i++){		
+			if(vector.elementAt(i).compareTo(min) <= 0 ){
+				min = vector.elementAt(i); 
+			}
 		}
+		return min;
 	}
-	return min;
 
-
-}
-
-private int findStudentLocation(String email) {
-	for(int i=0;i<this.students.size();i++) {
-		if(this.students.elementAt(i).getEmail().equals(email))
-			return i;
+	private int findStudentLocation(String email) {
+		for(int i=0;i<this.students.size();i++) {
+			if(this.students.elementAt(i).getEmail().equals(email))
+				return i;
+		}
+		throw new EmailIsNotExistException();
 	}
-	throw new EmailIsNotExistException();
-}
-
+	public int updateQuestionsLevel() {
+		int updatedCounter=0;
+		for(int i =0;i<this.questions.size();i++) {
+			int currnetQuestionLevel=this.questions.elementAt(i).getLevel();
+			this.questions.elementAt(i).updateLevel();
+			int NewQuestionLevel=this.questions.elementAt(i).getLevel();
+			if(currnetQuestionLevel!=NewQuestionLevel)
+				updatedCounter++;
+		}
+		return updatedCounter;
+	}
 }

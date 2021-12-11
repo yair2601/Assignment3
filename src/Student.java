@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class Student implements Comparable<Student>{
+public class Student implements Comparable<Student>,profitable{
 	private  String email;
 	private String firstName;
 	private String lastName;
@@ -30,10 +30,10 @@ public class Student implements Comparable<Student>{
 		else 
 			throw new ImpossibleEmailException();
 	}
-	
+
 	public void updateGrade(int mathGrade, int englishGrade) {
 		this.totalGrade=calculateTotalGrade( mathGrade, englishGrade);
-		
+
 	}
 
 	private int calculateTotalGrade(int mathGrade, int englishGrade) {
@@ -45,6 +45,8 @@ public class Student implements Comparable<Student>{
 	}
 	public int updateStudentLevel() {// return student level between 1-10
 		int updateStudentLevel=(int)this.totalGrade/100;
+		if (totalGrade==1000)
+			return 10;
 		if(updateStudentLevel==0)
 			return 1;
 		else 
@@ -69,5 +71,31 @@ public class Student implements Comparable<Student>{
 
 	public int compareTo(Student otherStudent) {
 		return this.comperator.compare(this, otherStudent);
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+	public int getTotalGrade() {
+		return this.totalGrade;
+	}
+
+
+	public int getprofit() {
+		return this.revenue;
+	}
+
+	public void setMathGrade(int mathGrade) {
+		if (mathGrade>=0 && mathGrade<=1)
+			this.mathGrade = mathGrade;
+	}
+
+	public void setEnglishGrade(int englishGrade) {
+		if (englishGrade>=0 && englishGrade<=1)
+			this.englishGrade = englishGrade;
 	}
 }
