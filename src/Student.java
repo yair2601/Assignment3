@@ -16,10 +16,12 @@ public class Student implements Comparable<Student>{
 		this.firstName=firstName;
 		this.lastName=lastName;
 		this.age=age;
+		this.email=email;
 		if (checkIfEmailIsValid(email)) {
 			this.email=email;
 		}
 		this.comperator= new StudntByRevenueComparator();
+		this.studentLevel=2;//need to check and replace
 	}
 
 	private boolean checkIfEmailIsValid(String email2) {

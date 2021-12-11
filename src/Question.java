@@ -8,6 +8,7 @@ abstract class Question implements Comparator<Question> {
 	protected int totalAnswers;
 	protected int totalWrongAnswers;
 	protected Comparator<Question> comperator;
+	protected String QuationType ;
 
 	protected Question(String content, int level, char answer, String[] choices) {
 		this.content=content;
@@ -95,6 +96,9 @@ abstract class Question implements Comparator<Question> {
 	}
 	public Comparator<Question> getComperator() {
 		return comperator;
+	}
+	public String getQuationType() {
+		return this.QuationType;
 	}
 	//abstract int compareTo(Question otherQuestion);
 }

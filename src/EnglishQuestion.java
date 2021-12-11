@@ -5,6 +5,7 @@ public class EnglishQuestion extends Question{
 	public EnglishQuestion (String content, int level, char answer, String[] choices, String hint) {
 		super(content, level, answer, choices);
 		this.hint=hint;
+		this.QuationType = "English";
 		//this.comperator=new QuestiontByDifficultyComparator()
 	}
 	void updateLevel() {

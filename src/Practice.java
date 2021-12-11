@@ -35,7 +35,7 @@ public class Practice {
 		System.out.println(this.ad);
 		System.out.println("Welcome to the Practice");
 		for(int i =0 ; i<this.questions.size();i++) {
-			System.out.print("Question number"+ i+1 + ":");
+			System.out.print("Question number "+ i+1 + ":");
 			char calculatedAnswer=calculateAnswer(i);
 			if(this.questions.elementAt(i)instanceof QuantitativeQuestion) {
 				System.out.println(((QuantitativeQuestion)this.questions.elementAt(i)).getformula());
