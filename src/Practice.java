@@ -14,8 +14,13 @@ public class Practice {
 		this.questions=questions;//need to check if need to clone
 		this.questions.sort(QuestiontByDifficultyComparator);
 		this.student=student;
+		AddToStudentRevenue(2);//add 2$ to student revenue
 		this.ad=ad;
 
+	}
+
+	private void AddToStudentRevenue(int amount) {
+		this.student.AddToRevenue(amount);
 	}
 
 	public Question getQuestionByNumber(int number) {//find the question by her number and return it

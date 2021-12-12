@@ -31,6 +31,7 @@ public class Application {
 
 	public void addStudent(Student s) {
 		this.students.add(s);
+		s.AddToRevenue(10);//add 10$ to student revenue
 	}
 	public void addAd(Ad ad) {
 		this.ads.add(ad);
@@ -83,7 +84,8 @@ public class Application {
 	public void createPractice (String email) {
 		int StudentLocation= findStudentLocation(email);
 		Vector <Question> practiceQuestion= CreateQuestions(this.students.elementAt(StudentLocation));
-		Practice practice= new Practice(this.students.elementAt(StudentLocation), practiceQuestion, generateAppropriateAd(StudentLocation));
+		Ad PracticeAd=generateAppropriateAd(StudentLocation);
+		Practice practice= new Practice(this.students.elementAt(StudentLocation), practiceQuestion,PracticeAd);
 		practice.runPractice();
 	}
 
@@ -132,9 +134,14 @@ public class Application {
 		int randomLocation=0;
 		while (flag==0) {
 			randomLocation = (int)(Math.random()*ads.size());
-			if(ads.elementAt(randomLocation).suitableForStudent(students.elementAt(StudentLocation)))//if this add is suitable for this student- flag=1
-				flag=1;
-		}
+			try {
+				if(ads.elementAt(randomLocation).suitableForStudent(students.elementAt(StudentLocation)))//if this add is suitable for this student- flag=1
+					flag=1;
+			}
+			catch (ArrayIndexOutOfBoundsException e) {//catch the exception and do nothing
+			}
+			}
+			
 		return ads.elementAt(randomLocation);
 	}
 

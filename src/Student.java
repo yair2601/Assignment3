@@ -21,7 +21,7 @@ public class Student implements Comparable<Student>,profitable{
 			this.email=email;
 		}
 		this.comperator= new StudntByRevenueComparator();
-		this.studentLevel=2;//need to check and replace
+		//this.studentLevel=2;//need to check and replace
 	}
 
 	private boolean checkIfEmailIsValid(String email2) {
@@ -97,5 +97,8 @@ public class Student implements Comparable<Student>,profitable{
 	public void setEnglishGrade(int englishGrade) {
 		if (englishGrade>=0 && englishGrade<=1)
 			this.englishGrade = englishGrade;
+	}
+	public void AddToRevenue(int addedRevenue) {
+		this.revenue+=addedRevenue;
 	}
 }
