@@ -9,7 +9,7 @@ public class Practice {
 	private int totalCorrectMathAnswers;
 	private int totalCorrectEnglishAnswers;
 
-	public Practice(Student student, Vector<Question> questions, Ad ad) {
+	public Practice(Student student, Vector<Question> questions, Ad ad) {//constructor
 		Comparator<Question> QuestiontByDifficultyComparator = new QuestiontByDifficultyComparator();
 		this.questions=questions;//need to check if need to clone
 		this.questions.sort(QuestiontByDifficultyComparator);
@@ -31,7 +31,7 @@ public class Practice {
 		return this.questions.size();
 	}
 
-	public void runPractice() {
+	public void runPractice() {//calculate a practice and run it
 		PrintAD();
 		System.out.println("Welcome to the Practice");
 		for(int i =0 ; i<this.questions.size();i++) {
@@ -50,17 +50,17 @@ public class Practice {
 
 	}
 
-	private void PrintPracticeResult() {
+	private void PrintPracticeResult() {// print the practice result
 		System.out.println("Practice was finished, your math score is:"+ calculateScore("math"));
 		System.out.println("Practice was finished, your math score is:"+ calculateScore("english"));
 
 	}
 
-	private void PrintAD() {
+	private void PrintAD() {// print ad
 		System.out.println(this.ad);
 	}
 
-	private void RunMathQuestion(int location, char calculatedAnswer) {
+	private void RunMathQuestion(int location, char calculatedAnswer) {// run a math question for the practice
 		PrintMathFormula(location);
 		PrintQuestion(location);
 		UpdateCorrectAnswer(calculatedAnswer,location,"math");
@@ -69,7 +69,7 @@ public class Practice {
 
 	}
 
-	private void RunEnglishQuestion(int location, char calculatedAnswer) {
+	private void RunEnglishQuestion(int location, char calculatedAnswer) {// run an English question for the practice
 		PrintQuestion(location);
 		PrintQuestionHint(location);
 		UpdateCorrectAnswer(calculatedAnswer,location,"english");
@@ -77,21 +77,21 @@ public class Practice {
 		System.out.println("Your answer:"+ calculatedAnswer);
 	}
 
-	private void PrintQuestionHint(int location) {
+	private void PrintQuestionHint(int location) {// print the hint for English question
 		System.out.println(((EnglishQuestion)this.questions.elementAt(location)).getHint());
 
 	}
 
-	private void PrintQuestion(int location) {
+	private void PrintQuestion(int location) {// print the question content
 		System.out.println(this.questions.elementAt(location));
 	}
 
-	private void PrintMathFormula(int location) {
+	private void PrintMathFormula(int location) {// print the formula for math question
 		System.out.println(((QuantitativeQuestion)this.questions.elementAt(location)).getformula());
 
 	}
 
-	private void updateStudentGrade(String questionsType) {
+	private void updateStudentGrade(String questionsType) {// update the student grades in math and English
 		if(questionsType.equals("math")) {
 			this.student.setMathGrade(this.totalCorrectMathAnswers/this.totalMathAnswers);
 		}if(questionsType.equals("english")) {
@@ -100,7 +100,7 @@ public class Practice {
 
 	}
 
-	private int calculateScore(String questionsType) {
+	private int calculateScore(String questionsType) { //calculate the practice score
 		if(questionsType.equals("math")) {
 			return this.totalCorrectMathAnswers/this.totalMathAnswers;
 		}if(questionsType.equals("english")) {
@@ -109,7 +109,7 @@ public class Practice {
 		return 0;
 	}
 
-	private void updateTotalQuestion(String questionsType) {
+	private void updateTotalQuestion(String questionsType) {// update the total amount of questions
 		if(questionsType.equals("math")) {
 			this.totalMathAnswers++;
 		}else {
@@ -118,7 +118,7 @@ public class Practice {
 
 	}
 
-	private void UpdateCorrectAnswer(char calculatedAnswer, int i, String questionsType) {
+	private void UpdateCorrectAnswer(char calculatedAnswer, int i, String questionsType) {// update the total amount of correct question
 		if(this.questions.elementAt(i).getAnswer()==calculatedAnswer) {
 			if(questionsType.equals("math")) {
 				this.totalCorrectMathAnswers++;
@@ -129,7 +129,7 @@ public class Practice {
 		}
 	}
 
-	private char calculateAnswer(int i) {
+	private char calculateAnswer(int i) {// generate an answer according to the student level
 		int succesProbability = (student.getStudentLevel()/10);
 		if(Math.random()<succesProbability) {
 
@@ -138,29 +138,36 @@ public class Practice {
 		return randomWrongAnswers(i);
 	}
 
-	private char randomWrongAnswers(int i) {
+	private char randomWrongAnswers(int i) {// generate a wrong answer
 		int randomAnsNumber =(int)(Math.random()*4);
 		char randomAns = 'e';
 		if(randomAnsNumber==0) {
 			randomAns='a';
-			if(this.questions.elementAt(i).getAnswer()!=randomAns)
+			if(checkIfWrongAnswer(i,randomAns))
 				return 'a';
 		}
 		if(randomAnsNumber==1) {
 			randomAns='b';
-			if(this.questions.elementAt(i).getAnswer()!=randomAns)
+			if(checkIfWrongAnswer(i,randomAns))
 				return 'b';
 		}
 		if(randomAnsNumber==2) {
 			randomAns='c';
-			if(this.questions.elementAt(i).getAnswer()!=randomAns)
+			if(checkIfWrongAnswer(i,randomAns))
 				return 'c';
 		}
-		if(randomAnsNumber==0) {
+		if(randomAnsNumber==3) {
 			randomAns='d';
-			if(this.questions.elementAt(i).getAnswer()!=randomAns)
+			if(checkIfWrongAnswer(i,randomAns))
 				return 'd';
 		}
 		return randomWrongAnswers(i);
+	}
+
+	private boolean checkIfWrongAnswer(int i , char randomAns) {// check if the answer is wrong
+		if(this.questions.elementAt(i).getAnswer()!=randomAns)
+			return true;
+		else 
+			return false;
 	}
 }
