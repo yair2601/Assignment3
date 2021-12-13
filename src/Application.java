@@ -116,7 +116,7 @@ public class Application {
 	private Student findHighestGradesStudent() {
 		Comparator<Student> StudntByGradesComparator= new StudntByGradesComparator();
 		this.students.sort(StudntByGradesComparator);
-		return this.students.elementAt(this.students.size());//need to check if the sort is from low to high or the opposit
+		return this.students.elementAt(this.students.size()-1);//need to check if the sort is from low to high or the opposit
 	}
 
 
@@ -124,7 +124,7 @@ public class Application {
 	private Student findMostProfitableStudent() {
 		Comparator<Student> StudntByRevenueComparator= new StudntByRevenueComparator();
 		this.students.sort(StudntByRevenueComparator);
-		return this.students.elementAt(this.students.size());//need to check if the sort is from low to high or the opposit
+		return this.students.elementAt(this.students.size()-1);//need to check if the sort is from low to high or the opposit
 	}
 
 
@@ -151,7 +151,7 @@ public class Application {
 		Vector <Question> practiceQuestion=new Vector <Question>();
 		Comparator<Question> QuestiontByDifficultyComparator = new QuestiontByDifficultyComparator();
 		this.questions.sort(QuestiontByDifficultyComparator);
-		addQuations(student, practiceQuestion);
+		addQuestions(student, practiceQuestion);
 		//		Vector MathVector=createMathVector();
 		//		Vector EnglishVector=createEnglishVector();
 		//		Vector MathVectorSameLevel=createMathVectorSameLevel(MathVector);
@@ -183,7 +183,7 @@ public class Application {
 
 			}
 		}
-		return 0;
+		return this.questions.size()-1;
 	}
 
 
@@ -199,7 +199,7 @@ public class Application {
 
 
 
-	private void addQuations(Student student, Vector<Question> practiceQuestion) {
+	private void addQuestions(Student student, Vector<Question> practiceQuestion) {
 		int level = student.getStudentLevel();
 		int[]range= findLevelRange(level);
 		int[]lowRange = findLevelRange(this.questions.elementAt(0).getLevel());//find the range of the lowest level (element at 0)

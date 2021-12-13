@@ -7,17 +7,23 @@ public class QuantitativeQuestion extends Question {
 		this.QuationType = "Quantitative";
 	}
 	public void updateLevel() {
-		int wrongPrecent=totalWrongAnswers/totalAnswers;
-		if(wrongPrecent>0.7) {
-			if (checkLevelRange(level,1)){
-				level++;
+		try {
+			int wrongPrecent=totalWrongAnswers/totalAnswers;
+			if(wrongPrecent>0.7) {
+				if (checkLevelRange(level,1)){
+					level++;
+				}
+			}
+			if(wrongPrecent<0.25) {
+				if (checkLevelRange(level,-1)){
+					level--;
+				}
 			}
 		}
-		if(wrongPrecent<0.25) {
-			if (checkLevelRange(level,-1)){
-				level--;
-			}
+		catch (ArithmeticException e) {//if someone try to update level of new question
+			System.out.println("The question is new and therefore its level cannot be updated");
 		}
+		
 	}
 	public String getformula() {
 		return this.formula;

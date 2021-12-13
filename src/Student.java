@@ -7,8 +7,8 @@ public class Student implements Comparable<Student>,profitable{
 	private int age;
 	private int totalGrade;
 	private int studentLevel;
-	private int mathGrade;
-	private int englishGrade;
+	private double mathGrade;
+	private double englishGrade;
 	private int revenue;
 	private Comparator<Student> comperator;
 
@@ -21,7 +21,7 @@ public class Student implements Comparable<Student>,profitable{
 			this.email=email;
 		}
 		this.comperator= new StudntByRevenueComparator();
-		//this.studentLevel=2;//need to check and replace
+		this.studentLevel=1;
 	}
 
 	private boolean checkIfEmailIsValid(String email2) {
@@ -31,13 +31,13 @@ public class Student implements Comparable<Student>,profitable{
 			throw new ImpossibleEmailException();
 	}
 
-	public void updateGrade(int mathGrade, int englishGrade) {
-		this.totalGrade=calculateTotalGrade( mathGrade, englishGrade);
+	public void SetTotalGrade() {
+		this.totalGrade=calculateTotalGrade( this.mathGrade, this.englishGrade);
 
 	}
 
-	private int calculateTotalGrade(int mathGrade, int englishGrade) {
-		return 700*mathGrade+300*englishGrade;
+	private int calculateTotalGrade(double mathGrade, double englishGrade) {
+		return  (int) ((int)700*mathGrade+300*englishGrade);
 	}
 
 	public int getRevenue() {
@@ -89,12 +89,12 @@ public class Student implements Comparable<Student>,profitable{
 		return this.revenue;
 	}
 
-	public void setMathGrade(int mathGrade) {
+	public void setMathGrade(double mathGrade) {
 		if (mathGrade>=0 && mathGrade<=1)
 			this.mathGrade = mathGrade;
 	}
 
-	public void setEnglishGrade(int englishGrade) {
+	public void setEnglishGrade(double englishGrade) {
 		if (englishGrade>=0 && englishGrade<=1)
 			this.englishGrade = englishGrade;
 	}

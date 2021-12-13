@@ -9,11 +9,16 @@ public class EnglishQuestion extends Question{
 		//this.comperator=new QuestiontByDifficultyComparator()
 	}
 	void updateLevel() {
-		if(this.totalWrongAnswers/this.totalAnswers>0.8&&checkLevelRange(this.level, 1)) {
-			level++;
+		try {
+			if(this.totalWrongAnswers/this.totalAnswers>0.8&&checkLevelRange(this.level, 1)) {
+				level++;
+			}
+			if(this.totalWrongAnswers/this.totalAnswers<0.2&&checkLevelRange(this.level, -1)) {
+				level--;
+			}
 		}
-		if(this.totalWrongAnswers/this.totalAnswers<0.2&&checkLevelRange(this.level, -1)) {
-			level--;
+		catch (ArithmeticException e) {
+			System.out.println("The question is new and therefore its level cannot be updated");
 		}
 	}
 
