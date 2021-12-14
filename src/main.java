@@ -6,8 +6,10 @@ public class main {
 		Application app = new Application("Questions_1");
 		Student Yair = new Student("yair@", "Yair", "Gafsou", 24);
 		Student Nir = new Student("nir@", "Nir", "Tal", 25);
+		Student Nir2 = new Student("nir@", "Nir2", "Tal2", 25);
 		app.addStudent(Yair);
 		app.addStudent(Nir);
+		app.addStudent(Nir2);
 		
 		Ad ad1= new Ad("ad1", 45, 0, 110);
 		Ad ad2= new Ad("ad2", 55, 15, 17);
@@ -24,7 +26,7 @@ public class main {
 		choices [3]="dddd";
 		char sign='b';
 		Question ques= new QuantitativeQuestion("nir question",2,sign,choices,"542formula");
-		app.addQuestion(ques);
+		//app.addQuestion(ques);
 	
 //		for (int i = 0; i < 100; i++) {
 //            int rand = (int)(Math.random() * 10)+1 ;
@@ -43,7 +45,7 @@ public class main {
 		app.createPractice("yair@");
 		System.out.println(Yair.getRevenue());
 		app.bestStudents();
-		System.out.println(app.updateQuestionsLevel());
+		//System.out.println(app.updateQuestionsLevel());
 		
 //		String str = "965	Robust systematic matrices	9	c	Vanessa indica	Certotrichas paena	Papio cynocephalus	Varanus sp.		user-facing\r\n";
 //		String[] newstr= new String[10];

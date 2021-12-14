@@ -1,9 +1,8 @@
 import java.util.*;
 public class AdByRevenueComparator implements Comparator<Ad> {
 
-	@Override
-	public int compare(Ad ad1, Ad ad2) {
-		int result=(ad1.getRevenue() - ad2.getRevenue());
+	public int compare(Ad ad1, Ad ad2) {//compare two ad by their revenues
+		int result=(ad1.getprofit() - ad2.getprofit());
 		if(result==0) {
 			return 0;
 		}

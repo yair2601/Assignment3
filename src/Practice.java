@@ -11,14 +11,15 @@ public class Practice {
 
 	public Practice(Student student, Vector<Question> questions, Ad ad) {//constructor
 		Comparator<Question> QuestiontByDifficultyComparator = new QuestiontByDifficultyComparator();
-		this.questions=questions;//need to check if need to clone
+		this.questions=questions;
 		this.questions.sort(QuestiontByDifficultyComparator);
 		this.student=student;
-		AddToStudentRevenue(2);//add 2$ to student revenue
+		
 		this.ad=ad;
+		
 	}
 
-	private void AddToStudentRevenue(int amount) {
+	private void AddToStudentRevenue(int amount) {//add x$ to the student revenue
 		this.student.AddToRevenue(amount);
 	}
 
@@ -35,9 +36,25 @@ public class Practice {
 		return this.questions.size();
 	}
 
-	public void runPractice() {//calculate a practice and run it
+	public void runPractice() {//generate a practice and run it
 		PrintAD();
 		System.out.println("Welcome to the Practice");
+		CreatePracticeQuestions();
+		updateStudentGrades();
+		updateRevenues();
+		PrintPracticeResult();
+	}
+
+	private void updateRevenues() {//update the student and ad revenues
+		AddToStudentRevenue(2);//add 2$ to student revenue
+		AddToAdRevenue();
+		
+	}
+	
+	private void AddToAdRevenue() {//update the ad revenue
+		this.ad.AddToAdrofit();
+	}
+	private void CreatePracticeQuestions() {//generate questions for the practice
 		for(int i =0 ; i<this.questions.size();i++) {
 			System.out.print("Question number "+ (i+1) + ":");
 			char calculatedAnswer=calculateAnswer(i);
@@ -48,20 +65,17 @@ public class Practice {
 				RunEnglishQuestion(i,calculatedAnswer,this.questions.elementAt(i));
 			}
 		}
-		updateStudentGrades();
-		PrintPracticeResult();
-
+		
 	}
 
-	private void updateStudentGrades() {
+	private void updateStudentGrades() {//update the students grades
 		updateStudentGrade("math");
 		updateStudentGrade("english");
 		updateStudentTotalGrade();
 
 	}
 
-
-	private void updateStudentTotalGrade() {
+	private void updateStudentTotalGrade() {//update the student total grade
 		this.student.SetTotalGrade();
 
 	}
@@ -86,7 +100,7 @@ public class Practice {
 
 	}
 
-	private void updateQuestionCounters(char calculatedAnswer,Question question) {
+	private void updateQuestionCounters(char calculatedAnswer,Question question) {// update the question counters
 		question.updateTotalAnswers(1);
 		if(checkIfWrongAnswer(calculatedAnswer,question)) {
 			question.updateTotalWrongAnswers(1);
@@ -94,7 +108,7 @@ public class Practice {
 
 	}
 
-	private boolean checkIfWrongAnswer(char calculatedAnswer, Question question) {
+	private boolean checkIfWrongAnswer(char calculatedAnswer, Question question) {// check if the answer is wrong
 		if(question.getAnswer()==calculatedAnswer) {
 			return false;		
 		}

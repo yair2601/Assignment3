@@ -8,7 +8,7 @@ public class QuantitativeQuestion extends Question {
 	}
 	public void updateLevel() {
 		try {
-			int wrongPrecent=totalWrongAnswers/totalAnswers;
+			double wrongPrecent=totalWrongAnswers/totalAnswers;
 			if(wrongPrecent>0.7) {
 				if (checkLevelRange(level,1)){
 					level++;
@@ -21,7 +21,6 @@ public class QuantitativeQuestion extends Question {
 			}
 		}
 		catch (ArithmeticException e) {//if someone try to update level of new question
-			System.out.println("The question is new and therefore its level cannot be updated");
 		}
 		
 	}

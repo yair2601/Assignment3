@@ -49,7 +49,7 @@ abstract class Question implements Comparator<Question>{
 	}
 	
 	public boolean updateTotalAnswers(int TotalAnswers ) {
-		if(totalAnswers==1) {
+		if(TotalAnswers==1) {
 			this.totalAnswers++;
 			return true;
 		}

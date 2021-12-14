@@ -140,8 +140,8 @@ public class Application {
 			}
 			catch (ArrayIndexOutOfBoundsException e) {//catch the exception and do nothing
 			}
-			}
-			
+		}
+
 		return ads.elementAt(randomLocation);
 	}
 
@@ -176,7 +176,7 @@ public class Application {
 		for(int i=0 ; i<this.questions.size();i++) {
 			try {
 				if(this.questions.elementAt(i).getLevel()==level&&this.questions.elementAt(i+1).getLevel()>level) 
-					return i+1;
+					return i;
 
 			}
 			catch (ArrayIndexOutOfBoundsException e) {//catch the exception- do nothing
@@ -228,23 +228,20 @@ public class Application {
 		int randomNumber=(int) ((Math.random() * (range[1] - range[0])) + range[0]);//generate random number in the range
 		if(this.questions.elementAt(randomNumber).getQuationType()=="English"&&quationType==0) {//check if english and needed to add english
 			if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
-				pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+				return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
 			}
 			practiceQuestion.add(this.questions.elementAt(randomNumber));
 			return this.questions.elementAt(randomNumber);
 		}
 		if(this.questions.elementAt(randomNumber).getQuationType()=="Quantitative"&&quationType==1) {//check if math and needed to add math
 			if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
-				pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+				return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
 			}		
 			practiceQuestion.add(this.questions.elementAt(randomNumber));
 			return this.questions.elementAt(randomNumber);
 		}
 		return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
-
 	}
-
-
 
 	private boolean checkIfExistInPracticeQuestion(Vector<Question> practiceQuestion, int randomNumber, Question originalQuestion) {
 		for(int i=0;i<practiceQuestion.size();i++) {
@@ -269,12 +266,12 @@ public class Application {
 	//	}
 
 	public static <T extends profitable> int totalRevenues (Vector <T> vector){//need to check if vector is the input
-			int totalRevenues=0;
-			for(int i = 0 ; i < vector.size() ; i++){
-				totalRevenues+=vector.elementAt(i).getprofit();
-			}
+		int totalRevenues=0;
+		for(int i = 0 ; i < vector.size() ; i++){
+			totalRevenues+=vector.elementAt(i).getprofit();
+		}
 		return totalRevenues;
-		
+
 	}
 
 	public static <T extends Comparable<T>> T getMax (Vector <T> vector) {

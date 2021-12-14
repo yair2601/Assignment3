@@ -2,7 +2,7 @@ import java.util.Comparator;
 
 public class StudntByRevenueComparator implements Comparator<Student> {
 
-	public int compare(Student Student1, Student Studnet2) {
+	public int compare(Student Student1, Student Studnet2) {//compare two students by their revenues
 		int result=(Student1.getRevenue() - Studnet2.getRevenue());
 		if(result==0) {
 			return 0;

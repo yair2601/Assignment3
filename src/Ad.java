@@ -9,11 +9,11 @@ public class Ad implements Comparable<Ad>,profitable {
 
 
 
-	public Ad(String content,int pricePerPractice,int minAge,int maxAge ) {
+	public Ad(String content,int pricePerPractice,int minAge,int maxAge ) {//constructor
 		this.pricePerPractice=pricePerPractice;
 		this.minAge=minAge;
 		this.maxAge=maxAge;
-		this.content=content;//need to check with yair why it missed
+		this.content=content;
 		if(isAdultThemedAd()&&minAge<18) {
 			throw new adultsOnlyExeption();
 		}
@@ -21,8 +21,8 @@ public class Ad implements Comparable<Ad>,profitable {
 	}
 
 
-	private boolean isAdultThemedAd() {
-		Vector <String> Xvector= new Vector();
+	private boolean isAdultThemedAd() {//check if the ad is with adult content
+		Vector <String> Xvector= new  Vector <String>();
 		FillxVector(Xvector);
 		for(int i=0;i<this.content.length();i++){
 			for(int j=0; j<Xvector.size();j++) {
@@ -33,22 +33,9 @@ public class Ad implements Comparable<Ad>,profitable {
 		}
 		return 
 				false;
-		
-		//		int xCounter=0;
-		//		for(int i=0;i<this.content.length();i++) {
-		//			if(checkTheLetter(i,'x','X')) {
-		//				xCounter++;
-		//			}
-		//			if(!checkTheLetter(i+1,'x','X')) {
-		//				xCounter=0;
-		//			}
-		//			if(xCounter==3)return true;
-		//		}
-		//		return false;
 	}
 
-
-	private void FillxVector(Vector <String> Xvector) {
+	private void FillxVector(Vector <String> Xvector) {//fill the vector with the forbidden content
 		Xvector.add("XXX");
 		Xvector.add("XxX");
 		Xvector.add("XXx");
@@ -57,15 +44,7 @@ public class Ad implements Comparable<Ad>,profitable {
 		Xvector.add("xxX");
 	}
 
-
-//	private boolean checkTheLetter(int index, char char1, char char2) {
-//		if(this.content.charAt(index)==char1||this.content.charAt(index)==char2) {
-//			return true;
-//		}
-//		return false;
-//	}
-
-	public boolean suitableForStudent(Student student) {
+	public boolean suitableForStudent(Student student) {//check if the ad is suitable for the student- age check
 		if(student.getAge()<=this.maxAge&&student.getAge()>=this.minAge) {
 			return true;
 		}
@@ -73,29 +52,25 @@ public class Ad implements Comparable<Ad>,profitable {
 
 	}
 
-	public int getRevenue() {
-		return revenue;
-	}
-	public String toString() {
+
+	public String toString() {//to string return the ad content
 		return this.content;
 	}
 
-
-	public Comparator<Ad> getComperator() {
-		return comperator;
-	}
-
-
-
-	public int compareTo(Ad otherAd) {
+	public int compareTo(Ad otherAd) {//compare the ad to another ad by the ad revenue
 		return this.comperator.compare(this, otherAd);
 	}
 
-
-
-	public int getprofit() {
+	public int getprofit() {//get the add profit
 		return this.revenue;
 
 	}
+	public void AddToAdrofit( ) {//add the ad price per practice to the ad revenue
+		this.revenue+=this.pricePerPractice;
+		
+
+	}
+
+
 
 }
