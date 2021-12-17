@@ -5,6 +5,7 @@ public class Application {
 	private Vector<Question> questions;
 	private Vector<Ad> ads;
 	private Vector<Student> students;
+	private Vector<Practice> practices;
 
 
 
@@ -14,6 +15,7 @@ public class Application {
 		this.questions= new Vector<Question>();
 		this.ads= new Vector<Ad>();
 		this.students= new Vector<Student>();
+		this.practices=new Vector<Practice>();
 
 		importQuestions(import_questions);
 
@@ -42,7 +44,7 @@ public class Application {
 	}
 
 	public void importQuestions(String import_questions) throws IOException {
-		String Configuration = "C:\\Users\\nirta\\Java\\"+import_questions+".txt";
+		String Configuration = "C:\\Users\\yair2\\Java\\"+import_questions+".txt";
 		BufferedReader inFile=null;
 		try
 		{
@@ -86,6 +88,7 @@ public class Application {
 		Vector <Question> practiceQuestion= CreateQuestions(this.students.elementAt(StudentLocation));
 		Ad PracticeAd=generateAppropriateAd(StudentLocation);
 		Practice practice= new Practice(this.students.elementAt(StudentLocation), practiceQuestion,PracticeAd);
+		this.practices.add(practice);
 		practice.runPractice();
 	}
 
@@ -227,21 +230,39 @@ public class Application {
 	private Question pickRandomQuationAndAtIt(int[] range, Vector<Question> practiceQuestion, int quationType) {
 		int randomNumber=(int) ((Math.random() * (range[1] - range[0])) + range[0]);//generate random number in the range
 		if(this.questions.elementAt(randomNumber).getQuationType()=="English"&&quationType==0) {//check if english and needed to add english
-			if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
-				return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
-			}
-			practiceQuestion.add(this.questions.elementAt(randomNumber));
-			return this.questions.elementAt(randomNumber);
+			return addEnglishQuastion(this.questions.elementAt(randomNumber),practiceQuestion,quationType,randomNumber,range);
+			
 		}
 		if(this.questions.elementAt(randomNumber).getQuationType()=="Quantitative"&&quationType==1) {//check if math and needed to add math
-			if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
-				return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
-			}		
-			practiceQuestion.add(this.questions.elementAt(randomNumber));
-			return this.questions.elementAt(randomNumber);
+			return addQuantitiveQuastion(this.questions.elementAt(randomNumber),practiceQuestion,quationType,randomNumber,range);
+			
 		}
 		return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
 	}
+
+	
+	private Question addQuantitiveQuastion(Question elementAt, Vector<Question> practiceQuestion, int quationType,
+			int randomNumber, int[] range) {
+		if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
+			return  pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+		}		
+		practiceQuestion.add(this.questions.elementAt(randomNumber));
+		return  this.questions.elementAt(randomNumber);
+		
+	}
+
+
+
+	private Question addEnglishQuastion(Question elementAt, Vector<Question> practiceQuestion, int quationType, int randomNumber, int[] range) {
+		if(checkIfExistInPracticeQuestion(practiceQuestion,randomNumber,this.questions.elementAt(randomNumber))) {
+			return pickRandomQuationAndAtIt(range,practiceQuestion, quationType);
+		}
+		practiceQuestion.add(this.questions.elementAt(randomNumber));
+		return this.questions.elementAt(randomNumber);
+		
+	}
+
+
 
 	private boolean checkIfExistInPracticeQuestion(Vector<Question> practiceQuestion, int randomNumber, Question originalQuestion) {
 		for(int i=0;i<practiceQuestion.size();i++) {
@@ -310,5 +331,11 @@ public class Application {
 				updatedCounter++;
 		}
 		return updatedCounter;
+	}
+
+
+
+	public Vector<Practice> getPractices() {
+		return practices;
 	}
 }

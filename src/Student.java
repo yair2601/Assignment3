@@ -21,7 +21,18 @@ public class Student implements Comparable<Student>,profitable{
 			this.email=email;
 		}
 		this.comperator= new StudntByRevenueComparator();
-		this.studentLevel=1;
+		setLevel(age);
+		
+	}
+
+	private void setLevel(int age) {
+		if(age>99) {
+			this.studentLevel=10;
+		}if(age<0) {
+			throw new ImpossibleAgeException();
+		}
+		this.studentLevel=(this.age/10)+1;//set the initial level of the student by his age
+		
 	}
 
 	private boolean checkIfEmailIsValid(String email2) {//check if the email is valid- contain @
@@ -43,14 +54,14 @@ public class Student implements Comparable<Student>,profitable{
 	public int getRevenue() {//get the student revenue
 		return revenue;
 	}
-	public int updateStudentLevel() {// return student level between 1-10
+	public void updateStudentLevel() {// return student level between 1-10
 		int updateStudentLevel=(int)this.totalGrade/100;
 		if (totalGrade==1000)
-			return 10;
+			this.studentLevel=10;
 		if(updateStudentLevel==0)
-			return 1;
+			this.studentLevel=1;
 		else 
-			return updateStudentLevel;
+			this.studentLevel= updateStudentLevel;
 
 	}
 

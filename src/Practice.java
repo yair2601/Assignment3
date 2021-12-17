@@ -42,7 +42,12 @@ public class Practice {
 		CreatePracticeQuestions();
 		updateStudentGrades();
 		updateRevenues();
+		updateStudentLevel();
 		PrintPracticeResult();
+	}
+
+	private void updateStudentLevel() {
+		this.student.updateStudentLevel();
 	}
 
 	private void updateRevenues() {//update the student and ad revenues
@@ -217,5 +222,12 @@ public class Practice {
 			return true;
 		else 
 			return false;
+	}
+	public Vector<Question> getQuestions() {
+		return this.questions;
+		
+	}
+	public Student getStudent() {
+		return this.student;
 	}
 }
