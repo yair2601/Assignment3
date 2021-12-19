@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-abstract class Question implements Comparator<Question>{
+abstract class Question implements Comparable<Question>{
 	protected  String content;
 	protected String[] choices;
 	protected char answer;
@@ -10,7 +10,7 @@ abstract class Question implements Comparator<Question>{
 	protected Comparator<Question> comperator;
 	protected String QuationType ;
 
-	protected Question(String content, int level, char answer, String[] choices) {
+	protected Question(String content, int level, char answer, String[] choices) {//constructor
 		this.content=content;
 		this.choices= cloneChoicesArray(choices);
 		this.answer=answer;
@@ -20,7 +20,7 @@ abstract class Question implements Comparator<Question>{
 		this.comperator= new QuestiontByDifficultyComparator();
 	}
 
-	private boolean checkIfLevelIsValid(int level) {
+	private boolean checkIfLevelIsValid(int level) {// check if the question level is valid
 		if (level>=1&& level<=10)
 			return true;
 		else 
@@ -28,7 +28,7 @@ abstract class Question implements Comparator<Question>{
 
 	}
 
-	private String[] cloneChoicesArray(String[] choices) {
+	private String[] cloneChoicesArray(String[] choices) {// clone the choices array
 		String[] answer= new String[choices.length];
 		for (int i=0;i<choices.length;i++) {
 			answer[i]=choices[i];
@@ -36,19 +36,19 @@ abstract class Question implements Comparator<Question>{
 		return answer;
 	}
 
-	public int getLevel() {
+	public int getLevel() {// get the question level
 		return level;
 	}
 	
-	public int getTotalAnswers() {
+	public int getTotalAnswers() {//get the total answer for the question 
 		return totalAnswers;
 	}
 	
-	public int getTotalWrongAnswers() {
+	public int getTotalWrongAnswers() {//get the total wrong answer for the question 
 		return totalWrongAnswers;
 	}
 	
-	public boolean updateTotalAnswers(int TotalAnswers ) {
+	public boolean updateTotalAnswers(int TotalAnswers ) {//update the total answer for the question 
 		if(TotalAnswers==1) {
 			this.totalAnswers++;
 			return true;
@@ -57,7 +57,7 @@ abstract class Question implements Comparator<Question>{
 		
 	}
 	
-	public boolean updateTotalWrongAnswers(int TotalWrongAnswers ) {
+	public boolean updateTotalWrongAnswers(int TotalWrongAnswers ) {//update the total wrong answer for the question 
 		if(TotalWrongAnswers==1) {
 			this.totalWrongAnswers++;
 			return true;
@@ -65,7 +65,7 @@ abstract class Question implements Comparator<Question>{
 		return false;
 		
 	}
-	protected boolean checkLevelRange(int level, int indicator) {
+	protected boolean checkLevelRange(int level, int indicator) {// check the level range question
 		if (indicator==1) {
 			if (level<=9)
 				return true;
@@ -82,22 +82,22 @@ abstract class Question implements Comparator<Question>{
 		return true;
 
 	}
-	abstract void updateLevel();
+	abstract void updateLevel();// update question level
 	
-	public String toString() {
+	public String toString() {// to string for the question content
 		return this.content;
 		
 	}
-	public char getAnswer() {
+	public char getAnswer() {//get the answer for this question 
 		return this.answer;
 	}
-	public Comparator<Question> getComparator() {
-		return this.comperator;
-	}
-	public Comparator<Question> getComperator() {
-		return comperator;
-	}
-	public String getQuationType() {
+//	public Comparator<Question> getComparator() {
+//		return this.comperator;
+//	}
+//	public Comparator<Question> getComperator() {
+//		return comperator;
+//	}
+	public String getQuationType() {// get the question type
 		return this.QuationType;
 	}
 	//abstract int compareTo(Question otherQuestion);

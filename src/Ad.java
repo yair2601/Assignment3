@@ -65,6 +65,10 @@ public class Ad implements Comparable<Ad>,profitable {
 		return this.revenue;
 
 	}
+	public int getPricePerPractice() {//get the add profit
+		return this.pricePerPractice;
+
+	}
 	public void AddToAdrofit( ) {//add the ad price per practice to the ad revenue
 		this.revenue+=this.pricePerPractice;
 		

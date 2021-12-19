@@ -31,8 +31,13 @@ public class EnglishQuestion extends Question{
 	}
 	
 	
-	public int compareTo(EnglishQuestion otherEnglishQuestion) {
+//	public int compareTo(EnglishQuestion otherEnglishQuestion) {
+//		return this.comperator.compare(this, otherEnglishQuestion);
+//	}
+//	
+	public int compareTo(Question otherEnglishQuestion) {
 		return this.comperator.compare(this, otherEnglishQuestion);
+		
 	}
 
 

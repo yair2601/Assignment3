@@ -31,8 +31,8 @@ public class main {
 		}catch(ImpossibleEmailException e) {
 			System.out.println("this is not a good email");
 		}
-		Student Lihi = new Student("lihi@fsdfsdf156", "Nir", "Tal", 5);
-		Student Lian = new Student("@", "Nir", "Tal", 95);
+		Student Lihi = new Student("lihi@fsdfsdf156", "lihi", "D", 5);
+		Student Lian = new Student("@", "Lian", "t", 95);
 		
 		app.addStudent(Yair);
 		app.addStudent(Nir);
@@ -100,6 +100,7 @@ public class main {
 		
 		//boolean flag=ad4.isAdultThemedAd();
 		//boolean flag2=ad3.isAdultThemedAd();
+		app.createPractice("nir@");
 		app.createPractice("nir@");
 		app.createPractice("nir@");
 		app.createPractice("@");

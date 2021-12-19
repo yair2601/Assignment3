@@ -10,7 +10,7 @@ public class Application {
 
 
 	//Configuration = C:\Users\yair2\Desktop\Java\Configuration.txt
-	public Application(String import_questions) throws IOException  {//neet to check what to throws
+	public Application(String import_questions) throws IOException  {//need to check what to throws
 
 		this.questions= new Vector<Question>();
 		this.ads= new Vector<Ad>();
@@ -44,7 +44,7 @@ public class Application {
 	}
 
 	public void importQuestions(String import_questions) throws IOException {
-		String Configuration = "C:\\Users\\yair2\\Java\\"+import_questions+".txt";
+		String Configuration = "C:\\Users\\nirta\\Java\\"+import_questions+".txt";
 		BufferedReader inFile=null;
 		try
 		{
@@ -83,7 +83,7 @@ public class Application {
 
 	}
 
-	public void createPractice (String email) {
+	public void createPractice (String email) throws ThereIsNoAppripiateAdException {
 		int StudentLocation= findStudentLocation(email);
 		Vector <Question> practiceQuestion= CreateQuestions(this.students.elementAt(StudentLocation));
 		Ad PracticeAd=generateAppropriateAd(StudentLocation);
@@ -132,20 +132,36 @@ public class Application {
 
 
 
-	private Ad generateAppropriateAd(int StudentLocation) {//generate a suitable ad for practice
-		int flag=0;
-		int randomLocation=0;
-		while (flag==0) {
-			randomLocation = (int)(Math.random()*ads.size());
-			try {
-				if(ads.elementAt(randomLocation).suitableForStudent(students.elementAt(StudentLocation)))//if this add is suitable for this student- flag=1
-					flag=1;
+	private Ad generateAppropriateAd(int StudentLocation) throws ThereIsNoAppripiateAdException {//generate a suitable ad for practice
+		if(CheckIfSuitableAdExist(StudentLocation)) {
+			int flag=0;
+			int randomLocation=0;
+			while (flag==0) {
+				randomLocation = (int)(Math.random()*ads.size());
+				try {
+					if(ads.elementAt(randomLocation).suitableForStudent(students.elementAt(StudentLocation)))//if this add is suitable for this student- flag=1
+						flag=1;
+				}
+				catch (ArrayIndexOutOfBoundsException e) {//catch the exception and do nothing
+				}
 			}
-			catch (ArrayIndexOutOfBoundsException e) {//catch the exception and do nothing
+
+			return ads.elementAt(randomLocation);
+		}//if
+		
+		throw new ThereIsNoAppripiateAdException();
+		
+	}
+
+
+
+	private boolean CheckIfSuitableAdExist(int studentLocation) {//check if there is ad who is suitable for the student
+		for(int i=0;i<ads.size();i++) {
+			if(ads.elementAt(i).suitableForStudent(students.elementAt(studentLocation))){
+				return true;
 			}
 		}
-
-		return ads.elementAt(randomLocation);
+		return false;
 	}
 
 

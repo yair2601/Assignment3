@@ -28,13 +28,17 @@ public class QuantitativeQuestion extends Question {
 		return this.formula;
 	}
 
-	public int compare(Question quantitativeQuestion1, Question QuantitativeQuestion2) {
-		return this.comperator.compare(this, QuantitativeQuestion2);
-		
-	}
+//	public int compare(Question quantitativeQuestion1, Question QuantitativeQuestion2) {
+//		return this.comperator.compare(this, QuantitativeQuestion2);
+//		
+//	}
 	
 	
-	public int compareTo(EnglishQuestion otherQuantitativeQuestion) {
-		return this.comperator.compare(this, otherQuantitativeQuestion);
+//	public int compareTo(EnglishQuestion otherQuantitativeQuestion) {
+//		return this.comperator.compare(this, otherQuantitativeQuestion);
+//	}
+	@Override
+	public int compareTo(Question quantitativeQuestion2) {
+		return this.comperator.compare(this, quantitativeQuestion2);
 	}
 }

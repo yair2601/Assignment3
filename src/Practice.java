@@ -46,7 +46,7 @@ public class Practice {
 		PrintPracticeResult();
 	}
 
-	private void updateStudentLevel() {
+	private void updateStudentLevel() {//update the student level
 		this.student.updateStudentLevel();
 	}
 
@@ -86,8 +86,8 @@ public class Practice {
 	}
 
 	private void PrintPracticeResult() {// print the practice result
-		System.out.println("Practice was finished, your math score is:"+ (int)calculateScore("math"));
-		System.out.println("Practice was finished, your math score is:"+ (int)calculateScore("english"));
+		System.out.println("Practice was finished, your math score is:"+ (int)calculateScore("math")+"%");
+		System.out.println("Practice was finished, your math score is:"+ (int)calculateScore("english")+"%");
 
 	}
 
@@ -136,6 +136,7 @@ public class Practice {
 
 	private void PrintQuestion(int location) {// print the question content
 		System.out.println(this.questions.elementAt(location));
+		
 	}
 
 	private void PrintMathFormula(int location) {// print the formula for math question
@@ -223,11 +224,11 @@ public class Practice {
 		else 
 			return false;
 	}
-	public Vector<Question> getQuestions() {
+	public Vector<Question> getQuestions() {//get practice question vector
 		return this.questions;
 		
 	}
-	public Student getStudent() {
+	public Student getStudent() {//get the student 
 		return this.student;
 	}
 }
