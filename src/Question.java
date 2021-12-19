@@ -82,6 +82,10 @@ abstract class Question implements Comparable<Question>{
 		return true;
 
 	}
+	protected void zeroCounters() {//update the questions counters to 0 after update level
+		this.totalAnswers=0;
+		this.totalWrongAnswers=0;
+	}
 	abstract void updateLevel();// update question level
 	
 	public String toString() {// to string for the question content
@@ -100,5 +104,6 @@ abstract class Question implements Comparable<Question>{
 	public String getQuationType() {// get the question type
 		return this.QuationType;
 	}
+	
 	//abstract int compareTo(Question otherQuestion);
 }
