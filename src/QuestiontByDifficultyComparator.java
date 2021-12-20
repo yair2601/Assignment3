@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class QuestiontByDifficultyComparator implements Comparator<Question> {
+public class QuestiontByDifficultyComparator implements Comparator<Question> {//compare between 2 quesation by level
 
 	public int compare(Question question1, Question question2) {
 		int result=(question1.getLevel() - question2.getLevel());
@@ -16,6 +16,6 @@ public class QuestiontByDifficultyComparator implements Comparator<Question> {
 		return 0;
 	}
 
-	
+
 
 }

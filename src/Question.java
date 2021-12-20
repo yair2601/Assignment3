@@ -39,31 +39,31 @@ abstract class Question implements Comparable<Question>{
 	public int getLevel() {// get the question level
 		return level;
 	}
-	
+
 	public int getTotalAnswers() {//get the total answer for the question 
 		return totalAnswers;
 	}
-	
+
 	public int getTotalWrongAnswers() {//get the total wrong answer for the question 
 		return totalWrongAnswers;
 	}
-	
+
 	public boolean updateTotalAnswers(int TotalAnswers ) {//update the total answer for the question 
 		if(TotalAnswers==1) {
 			this.totalAnswers++;
 			return true;
 		}
 		return false;
-		
+
 	}
-	
+
 	public boolean updateTotalWrongAnswers(int TotalWrongAnswers ) {//update the total wrong answer for the question 
 		if(TotalWrongAnswers==1) {
 			this.totalWrongAnswers++;
 			return true;
 		}
 		return false;
-		
+
 	}
 	protected boolean checkLevelRange(int level, int indicator) {// check the level range question
 		if (indicator==1) {
@@ -87,23 +87,18 @@ abstract class Question implements Comparable<Question>{
 		this.totalWrongAnswers=0;
 	}
 	abstract void updateLevel();// update question level
-	
+
 	public String toString() {// to string for the question content
 		return this.content;
-		
+
 	}
 	public char getAnswer() {//get the answer for this question 
 		return this.answer;
 	}
-//	public Comparator<Question> getComparator() {
-//		return this.comperator;
-//	}
-//	public Comparator<Question> getComperator() {
-//		return comperator;
-//	}
+
 	public String getQuationType() {// get the question type
 		return this.QuationType;
 	}
+
 	
-	//abstract int compareTo(Question otherQuestion);
 }

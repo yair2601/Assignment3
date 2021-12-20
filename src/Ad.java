@@ -71,7 +71,7 @@ public class Ad implements Comparable<Ad>,profitable {
 	}
 	public void AddToAdrofit( ) {//add the ad price per practice to the ad revenue
 		this.revenue+=this.pricePerPractice;
-		
+
 
 	}
 

@@ -9,7 +9,7 @@ public class Application {
 
 
 
-	//Configuration = C:\Users\yair2\Desktop\Java\Configuration.txt
+
 	public Application(String import_questions) throws IOException  {//constructor
 
 		this.questions= new Vector<Question>();
@@ -95,8 +95,6 @@ public class Application {
 		Student HighestGradesStudent=findHighestGradesStudent();
 		PrintMostProfitableStudent(MostProfitableStudent);
 		PrintHighestGradesStudent(HighestGradesStudent);
-
-		//findHighestScoreStudent()
 
 	}
 
@@ -321,7 +319,7 @@ public class Application {
 			int currnetQuestionLevel=this.questions.elementAt(i).getLevel();
 			this.questions.elementAt(i).updateLevel();
 			int NewQuestionLevel=this.questions.elementAt(i).getLevel();
-			if(currnetQuestionLevel!=NewQuestionLevel)
+			if(currnetQuestionLevel!=NewQuestionLevel)//compare between the level before and after
 				updatedCounter++;
 		}
 		return updatedCounter;

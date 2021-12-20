@@ -1,4 +1,4 @@
 
-public class ImpossibleEmailException extends RuntimeException {
+public class ImpossibleEmailException extends RuntimeException {//no @ in the given mail
 
 }

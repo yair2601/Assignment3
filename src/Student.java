@@ -76,9 +76,7 @@ public class Student implements Comparable<Student>,profitable{
 		return email;
 	}
 
-//	public Comparator<Student> getComperator() {
-//		return comperator;
-//	}
+
 
 	public int compareTo(Student otherStudent) {//compare between two students using the revenue comparator
 		

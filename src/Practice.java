@@ -14,9 +14,9 @@ public class Practice {
 		this.questions=questions;
 		this.questions.sort(QuestiontByDifficultyComparator);
 		this.student=student;
-		
+
 		this.ad=ad;
-		
+
 	}
 
 	private void AddToStudentRevenue(int amount) {//add x$ to the student revenue
@@ -53,9 +53,9 @@ public class Practice {
 	private void updateRevenues() {//update the student and ad revenues
 		AddToStudentRevenue(2);//add 2$ to student revenue
 		AddToAdRevenue();
-		
+
 	}
-	
+
 	private void AddToAdRevenue() {//update the ad revenue
 		this.ad.AddToAdrofit();
 	}
@@ -70,7 +70,7 @@ public class Practice {
 				RunEnglishQuestion(i,calculatedAnswer,this.questions.elementAt(i));
 			}
 		}
-		
+
 	}
 
 	private void updateStudentGrades() {//update the students grades
@@ -136,7 +136,7 @@ public class Practice {
 
 	private void PrintQuestion(int location) {// print the question content
 		System.out.println(this.questions.elementAt(location));
-		
+
 	}
 
 	private void PrintMathFormula(int location) {// print the formula for math question
@@ -226,7 +226,7 @@ public class Practice {
 	}
 	public Vector<Question> getQuestions() {//get practice question vector
 		return this.questions;
-		
+
 	}
 	public Student getStudent() {//get the student 
 		return this.student;

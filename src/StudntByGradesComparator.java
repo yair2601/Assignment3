@@ -1,6 +1,6 @@
 import java.util.Comparator;
 
-public class StudntByGradesComparator implements Comparator<Student>{
+public class StudntByGradesComparator implements Comparator<Student>{//compare between 2 students by grades
 	
 	public int compare(Student Student1, Student Studnet2) {
 		int result=(Student1.getTotalGrade() - Studnet2.getTotalGrade());
