@@ -61,7 +61,7 @@ public class Practice {
 	}
 	private void CreatePracticeQuestions() {//generate questions for the practice
 		for(int i =0 ; i<this.questions.size();i++) {
-			System.out.print("Question number "+ (i+1) + ":");
+			System.out.println("Question number "+ (i+1) + ":");
 			char calculatedAnswer=calculateAnswer(i);
 			if(this.questions.elementAt(i)instanceof QuantitativeQuestion) {
 				RunMathQuestion(i,calculatedAnswer,this.questions.elementAt(i));
@@ -136,8 +136,12 @@ public class Practice {
 
 	private void PrintQuestion(int location) {// print the question content
 		System.out.println(this.questions.elementAt(location));
-
+		for(int i=0;i<this.questions.elementAt(location).choices.length;i++) {
+			System.out.println((char)(97+i)+". "+this.questions.elementAt(location).choices[i]);
+		}
+		
 	}
+
 
 	private void PrintMathFormula(int location) {// print the formula for math question
 		System.out.println(((QuantitativeQuestion)this.questions.elementAt(location)).getformula());
